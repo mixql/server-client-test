@@ -17,10 +17,16 @@ public class SocketChannelClient {
             System.out.println("Connection established. Trying to write file");
             Path path = Paths.get("/home/mihan1233/sources/server-client-test/temp.txt");
             FileChannel fileChannel = FileChannel.open(path);
-            ByteBuffer buffer = ByteBuffer.allocate(2024);
+            ByteBuffer buffer = ByteBuffer.allocate(20);
             while (fileChannel.read(buffer) > 0) {
                 buffer.flip();
-                server.write(buffer);
+                int res = 0;
+                do{
+                    res = server.write(buffer);
+                    System.out.println(res);
+                }while(res != 0);
+
+
                 buffer.clear();
             }
             fileChannel.close();
