@@ -24,29 +24,28 @@ public class SocketChannelServer {
                         StandardOpenOption.WRITE)
         );
         try {
-            Thread.sleep(9000);
-        ByteBuffer buffer = ByteBuffer.allocate(24);
+//            Thread.sleep(9000);
+            ByteBuffer buffer = ByteBuffer.allocate(24);
             int res = client.read(buffer);
-            do{
+            do {
                 buffer.clear();
                 System.out.println(res);
-            }while (res < 0) ;
+            } while (res < 0);
 
-        do{
-            buffer.flip();
-            fileChannel.write(buffer);
-            buffer.clear();
-            res = client.read(buffer);
-            System.out.println(res);
-        }
-        while ( res > 0);
+            do {
+                buffer.flip();
+                fileChannel.write(buffer);
+                buffer.clear();
+                res = client.read(buffer);
+                System.out.println(res);
+            }
+            while (res > 0);
 
             fileChannel.close();
             System.out.println("File Received: ");
-        }catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
-        }
-        finally {
+        } finally {
             client.close();
         }
     }
